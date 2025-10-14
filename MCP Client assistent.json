@@ -1,0 +1,138 @@
+{
+  "name": "MCP Client assistent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -288,
+        -32
+      ],
+      "id": "33d97699-bfb9-4acd-b1eb-3209fb2c30d1",
+      "name": "When chat message received",
+      "webhookId": "056598e2-12a6-4c6c-9190-ed5a3543e900"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=System Prompt:\n\"You are an intelligent AI assistant with access to multiple specialized tools:\n\n1. Task Management Tools (use for organizing, tracking, and managing tasks):\n   - list_tasks: View current tasks and their status\n   - add_task: Create new tasks with priorities and due dates\n   - update_task: Modify task status or details\n   - create_content: Generate content for tasks or communications\n\n2. Search Engine Tools (use for current information and research):\n   - search: Find current information, news, or research topics\n\nGuidelines for tool usage:\n- Use task management tools for organizing work, creating to-do lists, or managing projects\n- Use search tools for finding current information, news, or researching topics\n- Always explain what tool you're using and why\n- If unsure which tool to use, ask for clarification\n\nChoose tools based on the user's specific request and provide helpful, accurate responses.\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        -32
+      ],
+      "id": "ab61a5cb-8e36-4696-9370-72aafe8b2298",
+      "name": "\"MCP Client - AI Assistant\""
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        176
+      ],
+      "id": "b23215e6-751d-4224-9ac3-7c39f03b44b7",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "DOzShDJgVWIfeQ9k",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 15
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -80,
+        176
+      ],
+      "id": "bf7dc752-1129-4e67-8580-fc818556a365",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://janwan.app.n8n.cloud/mcp/871457d4-84af-4a12-9173-f8ca2dbd5af0",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        112,
+        176
+      ],
+      "id": "d29872b9-aaeb-4c17-b795-71ae530d41ca",
+      "name": "MCP Client"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "\"MCP Client - AI Assistant\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "\"MCP Client - AI Assistant\"",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "\"MCP Client - AI Assistant\"",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "\"MCP Client - AI Assistant\"",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "afa66aa3-81ca-4a01-ac1b-c268a97a5aa8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d5cf714d6cbc81845cb4f4beb9d55b386287e6dcf6a79ae5403d68ae0e3efafa"
+  },
+  "id": "mLwOYyZVn01hmq3d",
+  "tags": []
+}

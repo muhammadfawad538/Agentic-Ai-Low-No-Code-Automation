@@ -1,0 +1,236 @@
+{
+  "name": "\"MCP Server - Task Management\"",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "871457d4-84af-4a12-9173-f8ca2dbd5af0"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        -160
+      ],
+      "id": "f7373ef6-a1b0-44a3-a61d-67d9409f4af1",
+      "name": "MCP Server Trigger",
+      "webhookId": "871457d4-84af-4a12-9173-f8ca2dbd5af0"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Append or update row in sheet in Google Sheets",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y",
+          "mode": "list",
+          "cachedResultName": "fawadgoogle",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('name__using_to_match_', ``, 'string') }}",
+            "employees": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('employees', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "name"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "employees",
+              "displayName": "employees",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -480,
+        32
+      ],
+      "id": "07dd6309-ffb9-4ac8-9f8d-e5e762fc24e9",
+      "name": "Append or update row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Yh4nZFCAGzBuHBtz",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "documentId": {
+          "__rl": true,
+          "value": "1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y",
+          "mode": "list",
+          "cachedResultName": "fawadgoogle",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y/edit?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -336,
+        32
+      ],
+      "id": "a17dbbf8-f609-43d0-b77d-3bac620ef7df",
+      "name": "Create sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Yh4nZFCAGzBuHBtz",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y",
+          "mode": "list",
+          "cachedResultName": "fawadgoogle",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MhnNvCgsYl3sTW7gEDlBL19u-pa4JzLSizf4caa8K_Y/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -176,
+        32
+      ],
+      "id": "0dde33be-2d6e-44a3-9d72-6949b3df95e6",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Yh4nZFCAGzBuHBtz",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "Generate AI-powered content for various purposes",
+        "workflowId": {
+          "__rl": true,
+          "value": "QpfzvvwFmLrvKh5L",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/QpfzvvwFmLrvKh5L",
+          "cachedResultName": "Content Generator"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        32
+      ],
+      "id": "5c583b5e-55f8-4b49-82cb-9f1b7353b836",
+      "name": "Call 'Content Generator'"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Append or update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'Content Generator'": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "9b59e3ff-47de-4495-b82a-4a95a012ce4a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d5cf714d6cbc81845cb4f4beb9d55b386287e6dcf6a79ae5403d68ae0e3efafa"
+  },
+  "id": "VL24WI7VoWfaSsCv",
+  "tags": []
+}
