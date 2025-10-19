@@ -1,0 +1,518 @@
+{
+  "name": "Support Ticket Resolution Agent with Multi-Step Review Loop",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Accept support ticket form",
+        "formDescription": "Customer will submit the ticket using this form",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Ticket subject",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Ticket description",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -512,
+        80
+      ],
+      "id": "b5f05f68-c0c2-449a-a33c-f2a6bad00086",
+      "name": "Accept support ticket",
+      "webhookId": "7c4b5ee2-f6a0-47e6-a13e-885764ecbe88"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        320
+      ],
+      "id": "3f2e1157-2fb3-49c2-8817-57b46fdbdc8a",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        160,
+        320
+      ],
+      "id": "c8d43447-8705-4663-9214-e91236bca885",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        560,
+        320
+      ],
+      "id": "d81f32e9-2d12-49e7-a015-68ea36a507b2",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "=You are a support assistant tasked with improving failed draft responses.\n\nThe previous draft did not pass the quality review. \nUse the reviewer’s feedback to refine the context and generate a new, improved draft.\n\nFollow these rules:\n1. Address the reviewer’s concerns directly.\n2. Improve clarity, accuracy, and tone.\n3. Include missing information if the reviewer said it was incomplete.\n4. Keep the message polite and professional.\n\n---\n\nTicket Information:\nSubject: {{ $('Accept support ticket').item.json.Ticket }}\nDescription: {{ $('Accept support ticket').item.json['Ticket description'] }}\n\nCategory: {{ $('Classification Agent').item.json.output }}\n\nPrevious Context:\n{{$json[\"retrieved_context\"]}}\n\nPrevious Draft Response:\n{{ $('Draft Agent').item.json.output }}\n\nReviewer Feedback:\n{{ $('Review Agent').item.json.output }}\n\n---\n\nOutput Format:\n{\n  \"refined_context\": \"Improved and more relevant context text\",\n  \"revised_draft_response\": \"New improved support response message\"\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1168,
+        112
+      ],
+      "id": "b4ccd56f-7920-4d43-a251-6110d3a35731",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        352
+      ],
+      "id": "b26b6cc4-cd5b-4ec3-acdc-14ebb22255fe",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6ea4f5b3-df53-4962-b440-5a444fb679d2",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "PASS",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        832,
+        96
+      ],
+      "id": "a1533572-fdb0-4ac0-a421-67fb234d60a2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Ticket: {{ $json.Ticket }}",
+        "options": {
+          "systemMessage": "=You are a support ticket classification assistant.\n\nYour task:\nGiven a customer support ticket with a *subject* and *description*, classify it into one of the following categories:\n1. Billing\n2. Technical\n3. Security\n4. General\n\nRespond ONLY with the category name (one word exactly) that best fits the ticket.\n\n---\n\nTicket Information:\nSubject:{{ $json.Ticket }} \nDescription: {{ $json['Ticket description'] }}\n\n---\n\nOutput format:\nCategory: <One of Billing / Technical / Security / General>\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        -16
+      ],
+      "id": "f6221c3c-64ef-4a35-83a5-c03cc3370a15",
+      "name": "Classification Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "=You are a professional customer support assistant.\n\nYour task:\nDraft an initial, polite, and helpful response to the support ticket below.\nUse the provided context to ensure accuracy and completeness.\n\nGuidelines:\n- Address the customer in a friendly and professional tone.\n- Clearly acknowledge their issue or question.\n- Provide a relevant and accurate solution or next step using the context.\n- Keep the response concise and easy to understand.\n- End with an offer for further assistance if needed.\n\n---\n\nTicket Information:\nSubject: {{ $('Accept support ticket').item.json.Ticket }}\nDescription: {{ $('Accept support ticket').item.json['Ticket description'] }}\n\nCategory: {{ $json.output }}\n\nRelevant Context:\n{{$json[\"retrieved_context\"]}}\n\n---\n\nOutput Format:\nDraft_Response:\n<Your response here>\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        96
+      ],
+      "id": "d32c348d-71e9-4691-9449-aecac43ce499",
+      "name": "Draft Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "=You are an automated support response reviewer.\n\nYour task:\nReview the draft response below based on the ticket details and context. \nDetermine whether the draft meets the company’s quality standards.\n\n---\n\nEvaluation Criteria:\n1. Accuracy – The response correctly addresses the customer’s issue using the provided context.\n2. Tone – The message is polite, empathetic, and professional.\n3. Completeness – The response provides a clear next step or resolution.\n\n---\n\nTicket Information:\nSubject: {{ $('Accept support ticket').item.json.Ticket }}\nDescription: {{ $('Accept support ticket').item.json['Ticket description'] }}\n\nCategory: {{ $('Classification Agent').item.json.output }}\n\nContext:\n{{$json[\"retrieved_context\"]}}\n\nDraft Response:\n{{ $json.output }}\n\n---\n\nOutput Format:\nProvide your judgment in JSON format:\n{\n  \"verdict\": \"PASS\" or \"FAIL\",\n  \"feedback\": \"Short explanation of why it passed or failed\"\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        96
+      ],
+      "id": "932dcdf1-730d-4747-a95d-d97ab2a8a09e",
+      "name": "Review Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "=You are a support automation assistant with access to the tool `google_sheets`.\n\nYour goal is to log all details from the support ticket workflow.\n\nCall the `google_sheets` tool to add a new row in the \"Support_Tickets\" sheet \nwith the following columns and data:\n\nColumns:\n1. Subject\n2. Description\n3. Category\n4. Retrieved Context\n5. Draft Response\n6. Reviewer Verdict\n7. Reviewer Feedback\n\n---\n\nInput Data:\nSubject:{{ $('Accept support ticket').item.json.Ticket }}\nDescription:{{ $('Accept support ticket').item.json['Ticket description'] }}\nRetrieved Context: {{$json[\"retrieved_context\"]}}\nDraft Response: {{ $('Draft Agent').item.json.output }}\nReviewer Verdict: {{ $('Review Agent').item.json.output }}\nReviewer Feedback: {{$json[\"feedback\"]}}\nRefined Context: {{$json[\"refined_context\"]}}\nFinal Response: {{$json[\"revised_draft_response\"]}}\nStatus: {{$json[\"status\"]}}\n\n---\n\nOutput Format (JSON only):\n{\n  \"Subject\": \"\",\n  \"Description\": \"\",\n  \"Category\": \"\",\n  \"Retrieved_Context\": \"\",\n  \"Draft_Response\": \"\",\n  \"Reviewer_Verdict\": \"\",\n  \"Reviewer_Feedback\": \"\",\n  \"Refined_Context\": \"\",\n  \"Final_Response\": \"\",\n  \"Status\": \"\"\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        -176
+      ],
+      "id": "71d356e1-1456-42bb-9b0b-c04166ab3415",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        768,
+        -64
+      ],
+      "id": "aae198bd-78ba-46c2-b13d-f8bee3cb7081",
+      "name": "Google Gemini Chat Model4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Xdf-EGxTvZo_iMq_pEF9Eew21gdnkd-cGqIuwqNPI8A",
+          "mode": "list",
+          "cachedResultName": "Ticket",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xdf-EGxTvZo_iMq_pEF9Eew21gdnkd-cGqIuwqNPI8A/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xdf-EGxTvZo_iMq_pEF9Eew21gdnkd-cGqIuwqNPI8A/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ticket_subject": "={{ $('Accept support ticket').item.json.Ticket }}",
+            "Ticket_desc": "={{ $('Accept support ticket').item.json['Ticket description'] }}",
+            "Category": "={{ $('Classification Agent').item.json.output }}",
+            "Draft_response": "={{ $('Draft Agent').item.json.output }}",
+            "REview": "={{ $('Review Agent').item.json.output }}"
+          },
+          "matchingColumns": [
+            "Category"
+          ],
+          "schema": [
+            {
+              "id": "Ticket_subject",
+              "displayName": "Ticket_subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Ticket_desc",
+              "displayName": "Ticket_desc",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Draft_response",
+              "displayName": "Draft_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "REview",
+              "displayName": "REview",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1360,
+        -176
+      ],
+      "id": "8da29890-10ea-46f1-8d68-dd0d0168d466",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ty9EHBUJrDnMOuYJ",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Accept support ticket": [
+      {
+        "json": {
+          "Ticket": "How to upgrade my plan",
+          "Ticket description": "I want to upgrade from basic to premium plan. What are the steps and when will it take effect?",
+          "submittedAt": "2025-10-18T23:42:04.315-07:00",
+          "formMode": "test"
+        }
+      }
+    ],
+    "Classification Agent": [
+      {
+        "json": {
+          "output": "Category: Billing"
+        }
+      }
+    ],
+    "Draft Agent": [
+      {
+        "json": {
+          "output": "Draft_Response:\nDear Customer,\n\nThank you for reaching out! I understand you'd like to upgrade your plan from Basic to Premium and are looking for the steps and information on when it will take effect.\n\nGenerally, you can upgrade your plan directly from your account settings or billing portal. Look for an option like \"Manage Plan,\" \"Change Plan,\" or \"Upgrade.\"\n\nTypically, plan upgrades take effect immediately upon confirmation, and your billing will be adjusted accordingly (e.g., prorated for the current billing cycle).\n\nIf you need specific step-by-step guidance or have trouble locating the upgrade option in your account, please let us know, and we'd be happy to assist further.\n\nBest regards,\n[Your Name/Support Team]"
+        }
+      }
+    ],
+    "Review Agent": [
+      {
+        "json": {
+          "output": "```json\n{\n  \"verdict\": \"PASS\",\n  \"feedback\": \"The response accurately addresses both parts of the customer's query (how to upgrade and when it takes effect) with general, yet helpful, information. The tone is polite, empathetic, and professional. It also provides a clear next step if the customer requires more specific assistance, making it complete.\"\n}\n```"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Accept support ticket": {
+      "main": [
+        [
+          {
+            "node": "Classification Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Classification Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Draft Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Review Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classification Agent": {
+      "main": [
+        [
+          {
+            "node": "Draft Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Draft Agent": {
+      "main": [
+        [
+          {
+            "node": "Review Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Review Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3368e89d-a568-462b-8c3b-2ccd88f6f05c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "74fafd80b2d470597320824ebaac4726b36e6df755f0ff41ff0697a603912d2a"
+  },
+  "id": "rR4ZFNEMHvs2cGoN",
+  "tags": []
+}
