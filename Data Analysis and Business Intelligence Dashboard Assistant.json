@@ -1,0 +1,649 @@
+{
+  "name": "Data Analysis and Business Intelligence Dashboard Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1sn7iHsJT-oM4r9ZDAbHemwYNdxJxQhY33Cmxv-X5Gy8",
+          "mode": "list",
+          "cachedResultName": "clean_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sn7iHsJT-oM4r9ZDAbHemwYNdxJxQhY33Cmxv-X5Gy8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1650100153,
+          "mode": "list",
+          "cachedResultName": "messy_business_sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sn7iHsJT-oM4r9ZDAbHemwYNdxJxQhY33Cmxv-X5Gy8/edit#gid=1650100153"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -592,
+        1552
+      ],
+      "id": "9c7bc16c-5764-4fd4-ae08-7c47b9b19e39",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ty9EHBUJrDnMOuYJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        1552
+      ],
+      "id": "e5ed3a00-77af-435e-8f53-82609790dda8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        1760
+      ],
+      "id": "df4f1a0e-e88a-4c35-9609-ece701269a1c",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1QTGgSeAwl12blerZQjNDOkGZUAHflKkMpBWxyat55Nk",
+          "mode": "list",
+          "cachedResultName": "voiceagent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QTGgSeAwl12blerZQjNDOkGZUAHflKkMpBWxyat55Nk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QTGgSeAwl12blerZQjNDOkGZUAHflKkMpBWxyat55Nk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Customer_ID": "={{ $json.Customer_ID }}",
+            "Age": "={{ $json.Age }}",
+            "Gender": "={{ $json.Gender }}",
+            "Region": "={{ $json.Region }}",
+            "Tenure_Years": "={{ $json.Tenure_Years }}",
+            "Monthly_Charges": "={{ $json.Monthly_Charges }}",
+            "Contract_Type": "={{ $json.Contract_Type }}",
+            "Internet_Service": "={{ $json.Internet_Service }}",
+            "Total_Spend": "={{ $json.Total_Spend }}",
+            "Churn": "={{ $json.Churn }}"
+          },
+          "matchingColumns": [
+            "Customer_ID"
+          ],
+          "schema": [
+            {
+              "id": "Customer_ID",
+              "displayName": "Customer_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Region",
+              "displayName": "Region",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tenure_Years",
+              "displayName": "Tenure_Years",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Monthly_Charges",
+              "displayName": "Monthly_Charges",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Contract_Type",
+              "displayName": "Contract_Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Internet_Service",
+              "displayName": "Internet_Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total_Spend",
+              "displayName": "Total_Spend",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Churn",
+              "displayName": "Churn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        768,
+        1552
+      ],
+      "id": "1bf49bdb-ddb0-4856-be4e-94a083cf264a",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ty9EHBUJrDnMOuYJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all input data (array of rows)\nconst rows = $input.all().map(item => item.json);\n\n// Convert to JSON string for AI model (clean formatting)\nconst dataset = JSON.stringify(rows, null, 2);\n\n// Output formatted dataset\nreturn [{ json: { dataset } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        1552
+      ],
+      "id": "1d5ff1f5-e16a-4c00-96d1-49197beb86ed",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "let output = $json.output || $json.text || $json.data || \"[]\";\n\noutput = output\n  .replace(/^```json/i, \"\")\n  .replace(/```$/, \"\")\n  .trim();\n\ntry {\n  const parsed = JSON.parse(output);\n  return parsed.map(item => ({ json: item }));\n} catch (e) {\n  return [{ json: { error: \"AI output not valid JSON\", raw: output } }];\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        1552
+      ],
+      "id": "a3361a18-e718-4a88-94b1-a4aa08bc15a2",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "jsCode": "let rows = $input.all().map(item => item.json);\nrows = rows.map(r => {\n  for (let key in r) {\n    if (r[key] === \"\" || r[key] === \"N/A\" || r[key] === null || r[key] === \"null\") {\n      r[key] = null;\n    }\n  }\n  return r;\n});\nreturn [{ json: { dataset: JSON.stringify(rows) } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        1552
+      ],
+      "id": "80a875a4-8467-4200-8179-8cda2de162e8",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const messy = $json.originalDataset; // Keep from your earlier step\nconst cleaned = $json.cleanedDataset || $json.output; // from AI Agent\n\nreturn [{\n  json: {\n    messy_data: messy,\n    cleaned_data: cleaned\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        1104
+      ],
+      "id": "64c7166d-d954-46ba-996f-ebbc411908b1",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        624,
+        1344
+      ],
+      "id": "b2f00add-7d82-47ab-ab6f-c009365774b8",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all rows from the input (Google Sheet or Cleaned Sheet)\nconst rows = $input.all().map(item => item.json);\n\n// Convert them to JSON string for the AI agent\nreturn [\n  {\n    json: {\n      dataset: JSON.stringify(rows, null, 2)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        1552
+      ],
+      "id": "22b449d6-b56b-41c3-b0d1-36b6775f4854",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        1760
+      ],
+      "id": "66173bf4-5ba8-4df5-8867-7ecf8cbac643",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        1760
+      ],
+      "id": "f3852c95-a14e-4f66-b1b5-dab8276d9189",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "WqlaNiqRK6pelEex",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here is the dataset that needs cleaning:\n{{ $json.dataset }}\nPlease return only the cleaned dataset as a valid JSON array.\n",
+        "options": {
+          "systemMessage": "=You are a professional Data Cleaning and Preprocessing Assistant.\nYour goal is to clean, normalize, and standardize the provided dataset.\nYou must:\n1. Remove any duplicate rows.\n2. Replace missing or blank numeric values with column mean.\n3. Replace missing categorical values with the most frequent category.\n4. Fix inconsistent capitalization (e.g., \"north america\" → \"North America\").\n5. Remove extra spaces or symbols from strings.\n6. Convert all numeric-looking strings into real numbers.\n7. Ensure all JSON keys are valid and consistent.\n8. Return ONLY a valid JSON array of cleaned records — no explanations, no code blocks, no text.\nIf input data is already clean, still standardize and format consistently.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        1552
+      ],
+      "id": "999541b7-29f7-4c07-b8b8-3e1db0460ff7",
+      "name": "Preproceesing Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here are two datasets for comparison:\n\nOriginal Dataset:\n{{ $('Code in JavaScript').item.json.dataset }}\n\nCleaned Dataset:\n{{ $json.cleaned_data }}\n",
+        "options": {
+          "systemMessage": "=You are an expert Data Quality Reviewer and Data Analyst.\nYour task is to assess the quality of a data cleaning operation.\nCompare the original (messy) and cleaned datasets provided.\nEvaluate if the cleaning steps were properly applied:\n1. Missing value handling\n2. Duplicate removal\n3. Data type correction\n4. Categorical consistency (capitalization, spelling, spacing)\n5. Numeric normalization and outlier handling\n6. Consistent formatting and valid JSON\n\nProvide a concise structured review with:\n{\n  \"cleaning_score\": 0–100,\n  \"summary\": \"Brief qualitative assessment\",\n  \"issues_detected\": [list of problems if any],\n  \"suggested_improvements\": [list of next cleaning steps]\n}\nDo not output any code blocks.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        736,
+        1104
+      ],
+      "id": "4bb631ad-4d15-4781-ab84-6fd024ea8028",
+      "name": "Reviewer"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.dataset }}\n",
+        "options": {
+          "systemMessage": "=Analyze the following business dataset and summarize findings in simple, executive-style bullet points. Focus on clarity and business impact.\n\nYour task:\n\nIdentify overall performance trends and insights.\n\nHighlight the top-performing regions, products, and contract types.\n\nDetect any issues or anomalies in the data.\n\nSummarize customer churn patterns and their causes.\n\nProvide clear KPIs (e.g., total revenue, average revenue per customer, churn rate).\n\nWrite insights in easy-to-understand bullet points — avoid technical jargon.\n\nInclude 3–5 action recommendations for business improvement.\n\nSuggest dashboard visuals that best explain the results (bar chart, pie, trend, scatter, KPI cards, etc.).\n\nExample Output Format:\n📊 Executive Summary\n\nNorth region has the highest revenue, while East has the highest churn.\n\nFiber Optic plans bring in the most revenue but also the most cancellations.\n\nMonth-to-month customers churn more often — convert them to long-term contracts.\n\n🔑 Key KPIs\n\nTotal Revenue: $25,000\n\nAvg. Revenue per Customer: $500\n\nChurn Rate: 32%\n\n🚀 Action Recommendations\n\nFocus retention campaigns in East and South regions.\n\nPromote long-term contracts for stability.\n\nAudit data anomalies in Total Spend and Tenure.\n\n📈 Dashboard Visualization Ideas\n\nBar chart: Revenue and churn by region.\n\nPie chart: Revenue share by service type.\n\nScatter plot: Monthly Charges vs Total Spend.\n\nKPI cards: Total Revenue, Avg Revenue, Churn Rate."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        1552
+      ],
+      "id": "e3fefc7a-d5ce-4574-9c54-3978392c6f30",
+      "name": "Key_Insights"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "=You are a Senior Business Intelligence (BI) Dashboard Designer and Data Visualization Expert.\nYour job is to analyze the insights provided by the Data Analysis Agent and recommend a professional Power BI or Metabase dashboard layout.\n\nThe dashboard should help executives easily monitor KPIs, track trends, and make decisions.\nFollow best practices for clarity, storytelling, and actionable visualization.\n\nUse the following structure in your output:\n\n🎯 Dashboard Objective\n\nBriefly describe what this dashboard will achieve (e.g., monitor sales trends, evaluate marketing ROI, assess regional and product performance).\n\n🧭 Key Dashboard Sections\n\nList and describe the main sections or tabs (e.g., “Overview”, “Regional Insights”, “Product Analysis”, “Marketing Performance”, “Customer Insights”).\n\nExample:\n\nOverview Dashboard – Summarizes KPIs and performance trends.\n\nRegional Dashboard – Compares regions by revenue, units sold, and satisfaction.\n\nProduct Category Dashboard – Focuses on category-level performance and satisfaction.\n\nMarketing Impact Dashboard – Correlates marketing spend with revenue outcomes.\n\nCustomer Experience Dashboard – Highlights satisfaction scores and feedback patterns.\n\n📊 Recommended Charts and Visuals\n\nFor each section, recommend 2–3 ideal charts, with an explanation of why they are effective.\n\nExample:\n\nSection\tChart Type\tFields\tPurpose\nOverview\tKPI Cards\tTotal Sales, Units, Marketing Spend, CSAT\tQuick performance snapshot\nRegional Insights\tBar Chart\tRegion vs Sales_Revenue\tCompare regional performance\nProduct Analysis\tDonut Chart\tProduct_Category vs Revenue Share\tShow product contribution\nMarketing Impact\tScatter Plot\tMarketing_Spend vs Sales_Revenue\tVisualize correlation\nCustomer Insights\tLine Chart\tMonth vs Customer_Satisfaction\tTrack satisfaction trends\n🎨 Design & Aesthetic Suggestions\n\nUse consistent color themes (e.g., blues for revenue, greens for satisfaction, reds for spend).\n\nInclude interactive filters (Region, Product_Category, Month).\n\nAdd drill-down options to explore trends at granular levels.\n\nUse trend lines and conditional formatting for visual storytelling.\n\nKeep a clean layout: 1 KPI section + 2 visualization rows per dashboard.\n\n📈 Dashboard KPIs\nMetric\tDescription\tFormula\nTotal Sales Revenue\tSum of all sales\tSUM(Sales_Revenue)\nTotal Units Sold\tTotal units sold\tSUM(Units_Sold)\nMarketing Efficiency\tROI metric\tSales_Revenue / Marketing_Spend\nAvg Customer Satisfaction\tCustomer experience\tAVG(Customer_Satisfaction)\n📂 Input Data\n{{ $json.output }}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1536,
+        1552
+      ],
+      "id": "bd6693b6-e8ed-4363-9b1b-cbfa4cbeb26e",
+      "name": "Dashboard_Recommendr"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        1760
+      ],
+      "id": "7ac5f94c-3d4f-46eb-9f9e-3f6b94588634",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-powerbi.powerBiTool",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        1744
+      ],
+      "id": "24ba59ef-5586-47b5-b633-471fa6fa0e92",
+      "name": "List a dashboard in Power BI"
+    }
+  ],
+  "pinData": {
+    "Preproceesing Agent": [
+      {
+        "json": {
+          "output": "```json\n[\n  {\n    \"row_number\": 2,\n    \"Customer_ID\": \"C001\",\n    \"Age\": 48,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 9,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 3,\n    \"Customer_ID\": \"C002\",\n    \"Age\": 40,\n    \"Gender\": \"Female\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 8,\n    \"Monthly_Charges\": 76.71,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 398.04,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 4,\n    \"Customer_ID\": \"C003\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 6,\n    \"Monthly_Charges\": 96.53,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 65.17,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 5,\n    \"Customer_ID\": \"C004\",\n    \"Age\": 63,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 0,\n    \"Monthly_Charges\": 79.75,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"No Internet Service\",\n    \"Total_Spend\": 569.37,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 6,\n    \"Customer_ID\": \"C005\",\n    \"Age\": 53,\n    \"Gender\": \"Female\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 7,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 7,\n    \"Customer_ID\": \"C006\",\n    \"Age\": 64,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 86.33,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 8,\n    \"Customer_ID\": \"C007\",\n    \"Age\": 58,\n    \"Gender\": \"Female\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 7,\n    \"Monthly_Charges\": 45.72,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 743.13,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 9,\n    \"Customer_ID\": \"C008\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 9,\n    \"Monthly_Charges\": 55.36,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 467.37,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 10,\n    \"Customer_ID\": \"C009\",\n    \"Age\": 51,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 75.93,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 643.14,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 11,\n    \"Customer_ID\": \"C010\",\n    \"Age\": 63,\n    \"Gender\": \"Female\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 9,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 665.31,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 12,\n    \"Customer_ID\": \"C011\",\n    \"Age\": 25,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 0,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 433.64,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 13,\n    \"Customer_ID\": \"C012\",\n    \"Age\": 58,\n    \"Gender\": \"Male\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 7,\n    \"Monthly_Charges\": 76.57,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 377.82,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 14,\n    \"Customer_ID\": \"C013\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 7,\n    \"Monthly_Charges\": 83.69,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 651.85,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 15,\n    \"Customer_ID\": \"C014\",\n    \"Age\": 25,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 3,\n    \"Monthly_Charges\": 70.73,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 706.39,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 16,\n    \"Customer_ID\": \"C015\",\n    \"Age\": 42,\n    \"Gender\": \"Female\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 9,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 553.17,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 17,\n    \"Customer_ID\": \"C016\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 659.93,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 18,\n    \"Customer_ID\": \"C017\",\n    \"Age\": 39,\n    \"Gender\": \"Female\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 8,\n    \"Monthly_Charges\": 49.65,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 669.36,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 19,\n    \"Customer_ID\": \"C018\",\n    \"Age\": 40,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 0,\n    \"Monthly_Charges\": 70.53,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"No Internet Service\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 20,\n    \"Customer_ID\": \"C019\",\n    \"Age\": 42,\n    \"Gender\": \"Female\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 0,\n    \"Monthly_Charges\": 83.35,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 21,\n    \"Customer_ID\": \"C020\",\n    \"Age\": 25,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 0,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 22,\n    \"Customer_ID\": \"C021\",\n    \"Age\": 44,\n    \"Gender\": \"Female\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 7,\n    \"Monthly_Charges\": 52.54,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 330.53,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 23,\n    \"Customer_ID\": \"C022\",\n    \"Age\": 67,\n    \"Gender\": \"Female\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 2,\n    \"Monthly_Charges\": 76.69,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 808.38,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 24,\n    \"Customer_ID\": \"C023\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 1,\n    \"Monthly_Charges\": 80.32,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"No Internet Service\",\n    \"Total_Spend\": 322.21,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 25,\n    \"Customer_ID\": \"C024\",\n    \"Age\": 25,\n    \"Gender\": \"Male\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"No Internet Service\",\n    \"Total_Spend\": 99.10,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 26,\n    \"Customer_ID\": \"C025\",\n    \"Age\": 42,\n    \"Gender\": \"Female\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 56.25,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 225.12,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 27,\n    \"Customer_ID\": \"C026\",\n    \"Age\": 20,\n    \"Gender\": \"Male\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 79.61,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 631.13,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 28,\n    \"Customer_ID\": \"C027\",\n    \"Age\": 56,\n    \"Gender\": \"Male\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 4,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 29,\n    \"Customer_ID\": \"C028\",\n    \"Age\": 49,\n    \"Gender\": \"Female\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 55.65,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 525.99,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 30,\n    \"Customer_ID\": \"C029\",\n    \"Age\": 35,\n    \"Gender\": \"Male\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 3,\n    \"Monthly_Charges\": 63.29,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 31,\n    \"Customer_ID\": \"C030\",\n    \"Age\": 29,\n    \"Gender\": \"Male\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 1,\n    \"Monthly_Charges\": 77.10,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 852.63,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 32,\n    \"Customer_ID\": \"C031\",\n    \"Age\": 23,\n    \"Gender\": \"Female\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 88.21,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 33,\n    \"Customer_ID\": \"C032\",\n    \"Age\": 37,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 4,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 408.84,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 34,\n    \"Customer_ID\": \"C033\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 518.37,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 35,\n    \"Customer_ID\": \"C034\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 6,\n    \"Monthly_Charges\": 69.67,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 750.18,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 36,\n    \"Customer_ID\": \"C035\",\n    \"Age\": 42,\n    \"Gender\": \"Female\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 82.06,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 720.93,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 37,\n    \"Customer_ID\": \"C036\",\n    \"Age\": 42,\n    \"Gender\": \"Female\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 85.20,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 38,\n    \"Customer_ID\": \"C037\",\n    \"Age\": 22,\n    \"Gender\": \"Female\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 39,\n    \"Customer_ID\": \"C038\",\n    \"Age\": 52,\n    \"Gender\": \"Female\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 4,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 710.64,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 40,\n    \"Customer_ID\": \"C039\",\n    \"Age\": 34,\n    \"Gender\": \"Male\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 42.73,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 151.42,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 41,\n    \"Customer_ID\": \"C040\",\n    \"Age\": 27,\n    \"Gender\": \"Female\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 99.17,\n    \"Contract_Type\": \"Month-to-month\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 42,\n    \"Customer_ID\": \"C041\",\n    \"Age\": 65,\n    \"Gender\": \"Female\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 4,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 92.96,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 43,\n    \"Customer_ID\": \"C042\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 444.08,\n    \"Churn\": \"Yes\"\n  },\n  {\n    \"row_number\": 44,\n    \"Customer_ID\": \"C043\",\n    \"Age\": 36,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 4,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 279.03,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 45,\n    \"Customer_ID\": \"C044\",\n    \"Age\": 23,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 1,\n    \"Monthly_Charges\": 46.81,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"No Internet Service\",\n    \"Total_Spend\": 783.70,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 46,\n    \"Customer_ID\": \"C045\",\n    \"Age\": 24,\n    \"Gender\": \"Male\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"No Internet Service\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 47,\n    \"Customer_ID\": \"C046\",\n    \"Age\": 34,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 8,\n    \"Monthly_Charges\": 87.02,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 48,\n    \"Customer_ID\": \"C047\",\n    \"Age\": 36,\n    \"Gender\": \"Male\",\n    \"Region\": \"South\",\n    \"Tenure_Years\": 4,\n    \"Monthly_Charges\": 52.55,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 560.40,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 49,\n    \"Customer_ID\": \"C048\",\n    \"Age\": 35,\n    \"Gender\": \"Female\",\n    \"Region\": \"East\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 70.19,\n    \"Contract_Type\": \"One Year\",\n    \"Internet_Service\": \"Fiber Optic\",\n    \"Total_Spend\": 510.32,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 50,\n    \"Customer_ID\": \"C049\",\n    \"Age\": 41,\n    \"Gender\": \"Male\",\n    \"Region\": \"West\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 47.72,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"DSL\",\n    \"Total_Spend\": 137.68,\n    \"Churn\": \"No\"\n  },\n  {\n    \"row_number\": 51,\n    \"Customer_ID\": \"C050\",\n    \"Age\": 42,\n    \"Gender\": \"Male\",\n    \"Region\": \"North\",\n    \"Tenure_Years\": 5,\n    \"Monthly_Charges\": 84.90,\n    \"Contract_Type\": \"Two Year\",\n    \"Internet_Service\": \"No Internet Service\",\n    \"Total_Spend\": 637.34,\n    \"Churn\": \"No\"\n  }\n]\n```"
+        }
+      }
+    ],
+    "Reviewer": [
+      {
+        "json": {
+          "output": "```json\n{\n  \"cleaning_score\": 95,\n  \"summary\": \"The data cleaning operation was executed with high precision and thoroughness across most identified data quality dimensions. Missing values were effectively handled through plausible mean/median imputation for numerical fields and sensible standardization for categorical fields. Data types were correctly enforced, and categorical values exhibited excellent consistency in spelling, casing, and standardization. The output format is also consistent and valid JSON.\",\n  \"issues_detected\": [\n    \"Duplicate Removal: The sample provided did not contain any explicit duplicate rows, thus the effectiveness of duplicate removal procedures could not be fully assessed.\",\n    \"Imputation Precision: A minor discrepancy was noted in the imputed mean for `Total_Spend` (510.32 in cleaned vs. ~510.33 calculated mean from original data), though this is a very minor rounding difference.\",\n    \"Churn Imputation Strategy: While consistent, the decision to impute 'N/A' in the `Churn` column to 'No' (e.g., for row 5 and 32) could benefit from a documented rationale, especially as 'Churn' is often a critical target variable for analysis.\"\n  ],\n  \"suggested_improvements\": [\n    \"Document Data Quality Plan: Clearly outline the overall data quality plan, including strategies for identifying and handling duplicate records, even if no duplicates were present in this specific sample. This ensures a comprehensive and reproducible cleaning process.\",\n    \"Justify Imputation Choices: For critical variables like `Churn`, provide a clear rationale or business context for the chosen imputation strategy for missing values ('N/A' to 'No'). This helps ensure that imputation does not introduce unintended bias into downstream analysis.\",\n    \"Standardize Numerical Precision: Consider standardizing the decimal precision for all numerical columns (e.g., `Monthly_Charges`, `Total_Spend`) to a consistent number of decimal places (e.g., two decimal places) for both original and imputed values, to enhance uniformity.\"\n  ]\n}\n```"
+        }
+      }
+    ],
+    "Key_Insights": [
+      {
+        "json": {
+          "output": "📊 **Executive Summary**\n\n*   **Overall Performance:** The company generates a decent total revenue, but faces a significant churn rate of 30%.\n*   **Key Churn Driver:** Month-to-month contracts are a major concern, showing a very high churn rate (53.8%).\n*   **Regional Hotspot:** The East region exhibits the highest customer churn (45.5%).\n*   **Product Performance:** Fiber Optic internet service generates the most revenue, but also has a higher churn rate (36.4%) compared to other services.\n*   **Data Quality Alert:** Several data points, particularly in \"Total Spend\" and \"Tenure Years,\" appear inconsistent, indicating potential data entry issues.\n\n🔑 **Key KPIs**\n\n*   **Total Revenue:** $25,549.24\n*   **Total Customers:** 50\n*   **Avg. Revenue per Customer:** $510.98\n*   **Churn Rate:** 30%\n\n🚀 **Action Recommendations**\n\n1.  **Prioritize Contract Conversion:** Launch targeted campaigns to incentivize customers on month-to-month contracts to switch to longer-term (One or Two Year) plans, potentially offering discounts or added benefits.\n2.  **Investigate East Region Churn:** Conduct a deeper analysis into customer feedback, service quality, and competitor offerings specifically within the East region to identify and address the root causes of high churn.\n3.  **Enhance Fiber Optic Value:** Evaluate the Fiber Optic service for potential improvements in reliability, customer support, or pricing to reduce its churn rate, given it's a major revenue driver.\n4.  **Audit Data Quality:** Conduct a thorough audit of the \"Total Spend\" and \"Tenure Years\" data to ensure accuracy and consistency. This will improve the reliability of future analyses and financial reporting.\n5.  **Review Pricing vs. Value:** Analyze if customers with high monthly charges who are churning perceive adequate value for their money. Consider offering personalized solutions or re-evaluating pricing tiers.\n\n📈 **Dashboard Visualization Ideas**\n\n*   **KPI Cards:** Display \"Total Revenue,\" \"Avg. Revenue per Customer,\" and \"Churn Rate\" prominently for quick oversight.\n*   **Bar Chart (Churn Rate by Contract Type):** Clearly show the difference in churn rates across Month-to-month, One Year, and Two Year contracts.\n*   **Stacked Bar Chart (Revenue and Churn by Region):** Visualize revenue contribution alongside churn rate for each region to identify areas needing attention.\n*   **Bar Chart (Churn Rate by Internet Service):** Highlight which internet service types contribute most to churn.\n*   **Scatter Plot (Monthly Charges vs. Total Spend):** Help visualize the relationship between these two metrics and potentially identify data anomalies or customer segments.\n*   **Table/Heatmap (Regional Performance):** A detailed table showing total customers, churned customers, churn rate, and total revenue for each region."
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Preproceesing Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Preproceesing Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Reviewer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Reviewer",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Key_Insights",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Key_Insights",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Dashboard_Recommendr",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preproceesing Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reviewer": {
+      "main": [
+        []
+      ]
+    },
+    "Key_Insights": {
+      "main": [
+        [
+          {
+            "node": "Dashboard_Recommendr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Preproceesing Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List a dashboard in Power BI": {
+      "ai_tool": [
+        [
+          {
+            "node": "Dashboard_Recommendr",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ad787e5d-e669-4012-a88c-34dd3de289bc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "74fafd80b2d470597320824ebaac4726b36e6df755f0ff41ff0697a603912d2a"
+  },
+  "id": "G533LPRQaXSxa3OX",
+  "tags": []
+}
