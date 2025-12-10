@@ -1,0 +1,21 @@
+I’m excited to share a project I recently built: an AI-powered Hospital Appointment & Follow-Up Automation System using n8n and autonomous AI agents.
+
+This system is designed to solve real-world healthcare challenges by fully automating:
+
+✅ Patient appointment booking
+✅ Smart WhatsApp/SMS reminders
+✅ AI-powered feedback analysis
+✅ Automatic urgency detection for critical patient cases
+
+The system uses webhook-based architecture, intelligent routing, and AI-driven decision-making to reduce manual hospital workload and improve patient experience.
+
+What makes this project special is its real-world focus — built with scalability in mind for healthcare digital transformation and enterprise workflow automation.
+
+🔮 What I’m building next for this project:
+
+In the next phase, I plan to add:
+• Integration with real hospital management systems (HIS/EMR)
+• Predictive AI to anticipate appointment no-shows
+• Voice AI agents for patient calling & triage
+• Arabic language support for Saudi healthcare use-cases
+• Dashboard analytics for hospital staff
